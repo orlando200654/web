@@ -1,0 +1,59 @@
+[build]
+  publish = "."
+  command = ""
+
+# Đảm bảo cả /app-ads.txt (chuẩn chính thức của Google AdMob / IAB) và /app-ad.txt đều trả về cùng 1 nội dung chuẩn HTTP 200
+[[redirects]]
+  from = "/app-ad.txt"
+  to = "/app-ads.txt"
+  status = 200
+
+# Đường dẫn rút gọn sạch đẹp để dán lên Google Play Console & Apple App Store Connect
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy-policy"
+  to = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/terms"
+  to = "/terms.html"
+  status = 200
+
+[[redirects]]
+  from = "/support"
+  to = "/support.html"
+  status = 200
+
+[[redirects]]
+  from = "/delete-data"
+  to = "/delete-data.html"
+  status = 200
+
+# Cấu hình Header chuẩn cho bot AdMob / App Store quét file app-ads.txt không bị lỗi MIME hay CORS
+[[headers]]
+  for = "/app-ads.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    Access-Control-Allow-Origin = "*"
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/app-ad.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+    Access-Control-Allow-Origin = "*"
+    Cache-Control = "public, max-age=3600"
+
+# Bảo mật cơ bản cho toàn trang
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
